@@ -1,12 +1,12 @@
 window.PageDescriptionEditorApi = (() => {
-  const matrixApiOptions = {
-    key: "9772315187",
-  };
+  const MatrixApi = window.Squiz_Matrix_API;
+  const matrixApiOptions = new Array();
+  matrixApiOptions["key"] = "9772315187";
   const mockValues = new Map();
-  let matrixApiClient;
+  const matrixApiClient = MatrixApi ? new MatrixApi(matrixApiOptions) : null;
 
   function hasMatrixApiConstructor() {
-    return typeof window.Squiz_Matrix_API !== "undefined";
+    return typeof MatrixApi !== "undefined";
   }
 
   function mockSave(assetId, field, value) {
@@ -19,15 +19,6 @@ window.PageDescriptionEditorApi = (() => {
   }
 
   function getMatrixApi() {
-    if (matrixApiClient) {
-      return matrixApiClient;
-    }
-
-    if (!hasMatrixApiConstructor()) {
-      return null;
-    }
-
-    matrixApiClient = new window.Squiz_Matrix_API(matrixApiOptions);
     return matrixApiClient;
   }
 

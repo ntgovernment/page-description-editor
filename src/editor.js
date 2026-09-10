@@ -16,8 +16,6 @@ const statusOptions = [
 ];
 
 const statusByLabel = new Map(statusOptions.map((option) => [option.label, option.value]));
-const table = document.querySelector("#page-metadata-editor");
-const result = document.querySelector(".editor-results");
 let activeCell = null;
 
 function setStatusPresentation(cell, label) {
@@ -26,6 +24,11 @@ function setStatusPresentation(cell, label) {
 }
 
 function announce(message, kind = "success") {
+  const result = document.querySelector(".editor-results");
+  if (!result) {
+    return;
+  }
+
   result.textContent = message;
   result.dataset.kind = kind;
 }
@@ -183,7 +186,12 @@ async function activateCell(cell) {
   });
 }
 
-if (table) {
+function initialiseEditor() {
+  const table = document.querySelector("#page-metadata-editor");
+  if (!table) {
+    return;
+  }
+
   table.querySelectorAll(".edit_area[data-editor-field]").forEach((cell) => {
     cell.tabIndex = 0;
     cell.setAttribute("role", "button");
@@ -208,5 +216,11 @@ if (table) {
       activateCell(cell);
     }
   });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initialiseEditor, { once: true });
+} else {
+  initialiseEditor();
 }
 })();
