@@ -1,12 +1,12 @@
-import "./editor.css";
-import {
+(() => {
+const {
   getWebPath,
   isLocalDevelopment,
   updateMetadata,
   updateName,
   updateStatus,
   updateWebPath,
-} from "./matrix-api.js";
+} = window.PageDescriptionEditorApi;
 
 const statusOptions = [
   { value: "1", label: "Archive" },
@@ -209,3 +209,4 @@ if (table) {
     }
   });
 }
+})();
