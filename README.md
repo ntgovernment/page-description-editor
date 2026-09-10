@@ -19,6 +19,6 @@ Build the static assets with:
 npm run build
 ```
 
-Publish the build output through Squiz Matrix Git File Bridge, then include the generated JavaScript and CSS in the Matrix Asset Listing page. Matrix renders the listing rows and authorises API updates.
+The build produces `dist/editor.js` and `dist/editor.css`. Commit these deployment assets and synchronise them through Squiz Matrix Git File Bridge, then include the generated JavaScript and CSS in the Matrix Asset Listing page. Matrix renders the listing rows and authorises API updates.
 
 The web-path control deliberately blocks production saves until the exact `getWebPath()` and `setWebPath()` response and request contract has been confirmed in Matrix DEV. The implementation must preserve every returned alternate path and update only the approved primary path with `auto_remap` enabled.
