@@ -1,4 +1,7 @@
 window.PageDescriptionEditorApi = (() => {
+  const matrixApiOptions = {
+    key: "9772315187",
+  };
   const mockValues = new Map();
   let matrixApiClient;
 
@@ -24,11 +27,7 @@ window.PageDescriptionEditorApi = (() => {
       return null;
     }
 
-    if (!window.pageDescriptionEditorMatrixApiOptions) {
-      throw new Error("Matrix API options are missing. Configure pageDescriptionEditorMatrixApiOptions before loading editor.js.");
-    }
-
-    matrixApiClient = new window.Squiz_Matrix_API(window.pageDescriptionEditorMatrixApiOptions);
+    matrixApiClient = new window.Squiz_Matrix_API(matrixApiOptions);
     return matrixApiClient;
   }
 
