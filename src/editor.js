@@ -16,7 +16,6 @@ const statusOptions = [
 ];
 
 const statusByLabel = new Map(statusOptions.map((option) => [option.label, option.value]));
-let activeCell = null;
 
 function setStatusPresentation(cell, label) {
   const status = label.toLowerCase().replace(/\s+/g, "-");
@@ -76,7 +75,6 @@ function makeControl(field, value) {
 function restoreCell(cell, value) {
   cell.replaceChildren(document.createTextNode(value));
   cell.dataset.displayValue = value;
-  activeCell = null;
   cell.focus();
 }
 
@@ -143,20 +141,18 @@ async function saveCell(cell, field, control, originalValue) {
 }
 
 async function activateCell(cell) {
-  if (activeCell || cell.querySelector(".editor-control")) {
+  if (cell.querySelector(".editor-control")) {
     return;
   }
 
   const field = cell.dataset.editorField;
   const originalValue = getDisplayValue(cell);
   let editValue = originalValue;
-  activeCell = cell;
 
   if (field === "web-path") {
     try {
       editValue = await getWebPath(cell.closest("tr")?.dataset.assetId, cell.dataset.webPath || originalValue);
     } catch (error) {
-      activeCell = null;
       announce(error.message || "The web path could not be loaded.", "error");
       return;
     }
