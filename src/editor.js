@@ -211,7 +211,7 @@ function initialiseEditor() {
 
   table.addEventListener("keydown", (event) => {
     const cell = event.target.closest(".edit_area[data-editor-field]");
-    if (cell && (event.key === "Enter" || event.key === " ")) {
+    if (cell && event.target === cell && (event.key === "Enter" || event.key === " ")) {
       event.preventDefault();
       activateCell(cell);
     }
